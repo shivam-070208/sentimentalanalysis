@@ -18,6 +18,7 @@ const Text = () => {
           </motion.span>
         </span>
       ))}
+      <motion.p className="text-white text-xl max-w-xl m-auto mt-2">Improving education through constructive feedback and data-driven insights</motion.p>
     </div>
   );
 };
