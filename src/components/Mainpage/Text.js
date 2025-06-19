@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 const Text = () => {
@@ -11,7 +11,7 @@ const Text = () => {
         >
           <motion.span
             animate={{ y: [60, 0]}}
-            transition={{ duration: 0.6, delay:0.01*i,ease: "easeInOut" }}
+            transition={{ duration: 0.6, delay:0.015*i,ease: "easeInOut" }}
             className="block"
           >
              {item === " " ? "\u00A0" : item}
