@@ -10,7 +10,7 @@ const Text = () => {
           className=" relative overflow-hidden h-fit py-2 text-white font-bold text-[22px] sm:text-5xl inline-block"
         >
           <motion.span
-            animate={{ y: [60, 0]}}
+            animate={{ y: [60, 0]}} initial={{y:60}}
             transition={{ duration: 0.6, delay:0.015*i,ease: "easeInOut" }}
             className="block"
           >

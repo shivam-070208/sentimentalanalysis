@@ -6,6 +6,7 @@ import { useState } from "react"
 import Form from "@/components/Mainpage/Form"
 const page = () => {
   const [board,sboard] = useState(null)
+  fetch('/api/Create')
   return (
     <div className="bg-linear-to-b from-blue-500 to-90% to-blue-800">
          <Container>
