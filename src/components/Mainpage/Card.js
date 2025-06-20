@@ -3,7 +3,7 @@ import { Svg } from './Svg'
 
 const Card = ({item,sboard}) => {
   return (
-    <div className='w-full bg-white rounded pb-10 group overflow-hidden h-full flex items-center  flex-col'>
+    <div className='w-full bg-white rounded pb-10 overflow-hidden h-full flex items-center  flex-col'>
       <div className={`${item=="Student"?'bg-blue-800':'bg-green-600'} w-full rounded-tmd h-2 mb-5`}></div>
       <Svg item={item} />
       <p className='text-2xl font-semibold mt-4'>{item}</p>
