@@ -6,7 +6,7 @@ import { useState } from "react"
 import Form from "@/components/Mainpage/Form"
 const page = () => {
   const [board,sboard] = useState(null)
-  fetch('/api/Create')
+  
   return (
     <div className="bg-linear-to-b from-blue-500 to-90% to-blue-800">
          <Container>
@@ -17,7 +17,7 @@ const page = () => {
           <Card key={item} sboard={sboard} item={item} />
         ))}
       </div>}
-        {board&& <Form board={board} />}
+        {board&& <Form board={board} sboard={sboard} />}
       <footer className="text-white  m-auto mt-20">© 2025 Faculty Feedback System. All rights reserved.</footer>
          </Container>
          </div>
