@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import Inputfield from "./Inputfield";
+import { useRouter } from "next/navigation";
 const Form = ({ board,sboard }) => {
   const Student = {
     Label: "Section",
@@ -45,16 +46,31 @@ const Form = ({ board,sboard }) => {
       {
         Label: "Password",
         Placeholder: "",
-      },
-      {
-        Label: "Confirm Password",
-        Placeholder: "",
-      },
+      }
     ],
   };
+  const router = useRouter()
+    const [index, sindex] = useState(0);
 
-  const [index, sindex] = useState(0);
+  const handleSubmit =async (e)=>{
+        e.preventDefault()
+        const formData = new FormData(e.target)
+       const form = Object.fromEntries(formData.entries());
+     
+       const way = index?'signup':'Login'
+      const res = await fetch(`/api/${way}/${board}`,{
+        method:'post',
+        body:JSON.stringify(form),
+        
 
+      });
+    const data = await res.json()
+    if(res.status == 200){
+    return  router.push('/home')
+    }
+    alert(data.message);
+    
+    }
   return (
     <div className="w-full max-w-md m-auto bg-white flex mt-4 rounded flex-col py-3 px-2 items-center">
       <h1 className="text-2xl font-semibold">{board} Access</h1>
@@ -79,7 +95,7 @@ const Form = ({ board,sboard }) => {
           </div>
         ))}
       </div>
-      <form className="w-full flex flex-col gap-3 px-2 mb-4 mt-10">
+      <form onSubmit={handleSubmit}  className="w-full flex flex-col gap-3 px-2 mb-4 mt-10">
         {FormItem[index ? "Signin" : "Login"].map((data, i) => (
           <Inputfield data={data} key={data.Label} />
         ))}

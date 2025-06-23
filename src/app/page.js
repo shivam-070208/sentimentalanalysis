@@ -8,7 +8,7 @@ const page = () => {
   const [board,sboard] = useState(null)
   
   return (
-    <div className="bg-linear-to-b from-blue-500 to-90% to-blue-800">
+    <div className="bg-linear-to-b from-blue-500 to-90% to-blue-800 max-w-screen overflow-x-hidden">
          <Container>
       <Text />
       {!board &&<div className="grid w-full gap-6 grid-cols-1 mt-7 md:grid-cols-2"

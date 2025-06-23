@@ -12,10 +12,11 @@ export async function POST(request,{params}) {
 
   try {
     const body = await request.json(); 
-    const cookiestore = cookies()
+    const cookiestore = await cookies()
     const salt = await bcrypt.genSalt(10);
     const para = await params;
     const Role = para.Role;
+    
     const { Name, Email, Section, Password } = body;
     const hashedPassword = await bcrypt.hash(Password,salt)
 
