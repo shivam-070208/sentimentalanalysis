@@ -51,6 +51,7 @@ const Form = ({ board,sboard }) => {
   };
   const router = useRouter()
     const [index, sindex] = useState(0);
+    const [message,smessage] = useState(null)
 
   const handleSubmit =async (e)=>{
         e.preventDefault()
@@ -66,9 +67,10 @@ const Form = ({ board,sboard }) => {
       });
     const data = await res.json()
     if(res.status == 200){
-    return  router.push('/home')
+    return  router.push(`/${board}/home`)
     }
-    alert(data.message);
+    console.log(data)
+   smessage(data.message)
     
     }
   return (
@@ -99,6 +101,7 @@ const Form = ({ board,sboard }) => {
         {FormItem[index ? "Signin" : "Login"].map((data, i) => (
           <Inputfield data={data} key={data.Label} />
         ))}
+        <p className="text-sm text-red-300">{message}</p>
         <button
           type="submit"
           value="submit"
@@ -106,6 +109,7 @@ const Form = ({ board,sboard }) => {
         >
           {index == 0 ? "Login" : "Create Account"}
         </button>
+        
         <button
          type="button"
            onClick={()=>sboard(null)}

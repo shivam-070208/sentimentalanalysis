@@ -1,3 +1,4 @@
+import { connectDb } from "@/config/connectdb";
 import { Usermodel } from "@/models/usermodel";
 import bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -6,6 +7,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request,{params}) {
     try{
+        await connectDb();
         const para = await params;
     const Role = para.Role;
         const cookieStore = await cookies()
@@ -26,6 +28,7 @@ export async function POST(request,{params}) {
          return NextResponse.json({message:"Password is Invalid"},{status:401})
 
     }catch(err){
+        
         return NextResponse.json({message:"server side error"},{status:400})
     }
 

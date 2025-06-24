@@ -3,3 +3,7 @@
 @theme inline{
   --color-container:#387AEB;
 }
+
+::-webkit-scrollbar{
+  display: none;
+}
