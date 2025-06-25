@@ -1,6 +1,7 @@
 'use client';
 
 
+import { motion } from 'framer-motion';
 import { BarChart, BookOpen, GraduationCap, Home, MessageSquare, Users } from 'lucide-react';
 import Link from 'next/link';
 
@@ -26,7 +27,7 @@ const Sidebar = ({ role,index }) => {
         ];
 
   return (
-    <aside className={`bg-white  sm:static absolute min-h-screen border-r-1 -left-30 border-gray-200 transition-all duration-300 ${expanded ? 'w-60 left-0' : 'w-20'}`}>
+    <aside className={`bg-white  sm:static absolute min-h-screen h-full border-r-1 -left-30 border-gray-200 transition-all duration-300 ${expanded ? 'w-60 left-0' : 'w-20'}`}>
         <div onClick={()=>setExpanded(!expanded)} className={` ${expanded ? 'hidden' : null} border-r-2 border-b-2 border-neutral-500 -rotate-45 sm:hidden fixed top-1/2 left-0 w-4 h-4`} />
       <nav className="flex flex-col  py-4">
         <div className="px-4 mb-6 flex items-center justify-center">
@@ -53,7 +54,7 @@ const Sidebar = ({ role,index }) => {
               className="flex items-center py-2 px-3 relative cursor-pointer rounded-md w-full hover:bg-gray-100 transition-colors"
              
             >
-              {index==idx &&<span className='absolute top-0 left-0 rounded-md w-full h-full bg-neutral-300 z-0' />}
+              {index==idx &&<motion.span layoutId='motion-span' transition={{type:'spring',stiffness:100}} className='absolute top-0 left-0 rounded-md w-full h-full bg-neutral-100 z-0' />}
               <span className={expanded ? 'mr-3 z-1' : 'mx-auto z-1' }>{item.icon}</span>
               {expanded && <span className='z-1'>{item.label}</span>}
             </Link>

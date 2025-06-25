@@ -26,7 +26,7 @@ export default function TeacherEvaluation() {
           key={i}
           onClick={() => onChange(i + 1)}
           xmlns="http://www.w3.org/2000/svg"
-          className={`h-6 w-6 ${
+          className={`h-4 w-4 mt-2 ${
             i < value ? "text-yellow-500" : "text-gray-300"
           }`}
           viewBox="0 0 24 24"
@@ -42,29 +42,29 @@ export default function TeacherEvaluation() {
     <div className="w-full md:p-4 ">
         <h3 className="text-2xl font-bold">Rate Your Teachers</h3>
         <p className="text-sm text-neutral-400">Your feedback helps improve teaching quality and is completely anonymous</p>
-    <div className="bg-white p-6 rounded-xl mt-8 shadow-lg w-full">
+    <div className="bg-white p-6 rounded-xl mt-8 hover:shadow-lg shadow-[#1111118b] hover:scale-102 transition-all  border-neutral-400 border hover:border-0 w-full">
       <h1 className="text-2xl font-semibold mb-2">Teacher Evaluation Form</h1>
       <p className="text-gray-600 text-sm mb-4">
         Rate your teachers across different aspects of their teaching
       </p>
 
-      {/* Teacher selector */}
-      <label className="block mb-2 font-medium">Select Teacher</label>
+   
+      <label className="block mb-2 font-medium text-sm">Select Teacher</label>
       <select
-        className="w-full border border-neutral-300 focus:outline-2 transition-all outline-blue-600 rounded-md p-2 mb-6"
+        className="w-full border cursor-pointer  border-neutral-300 focus:outline-2 outline-blue-600 rounded-md p-2 mb-6 text-sm"
         value={selectedTeacher}
         onChange={(e) => setSelectedTeacher(e.target.value)}
       >
         <option value="" hidden disabled>Select a teacher</option>
         {teachers.map((teacher) => (
-          <option key={teacher}  value={teacher}>{teacher}</option>
+          <option key={teacher}   value={teacher}>{teacher}</option>
         ))}
       </select>
 
 
       {selectedTeacher !=="" &&
       <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4 text-sm">
         <div>
           <p className="font-medium">Teaching Quality</p>
           <StarRating
@@ -95,7 +95,7 @@ export default function TeacherEvaluation() {
         </div>
       </div>
 
-      {/* Feedback */}
+    <label className="block mb-2 font-medium text-sm">Additional feedback (optional)</label>
       <textarea
         className="w-full border border-neutral-300 focus:outline-2 min-h-20 outline-blue-600 rounded-md p-2 mt-2"
         placeholder="Share your thoughts about the teacher's strengths and areas for improvement..."
