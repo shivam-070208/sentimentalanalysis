@@ -10,7 +10,8 @@ import {
   Settings,
   Users
 } from "lucide-react";
-const Dashboardlayout = ({children,role}) => {
+import Sidebar from './Sidebar';
+const Dashboardlayout = ({children,role,index}) => {
    
     return (
     <div className='flex flex-col max-w-screen overflow-x-hidden   min-h-screen'>
@@ -22,10 +23,8 @@ const Dashboardlayout = ({children,role}) => {
 
     </div>
         </header>
-        <div className='  flex-1 flex   w-screen'>
-        <aside className='h-full bg-white w-14 peer-[checked]:'>
-
-        </aside>
+        <div className='  flex-1 flex relative   w-screen'>
+       <Sidebar role={role} index={index} />
         <div className='flex-1 p-6 bg-[#F9FAFB] flex-col flex gap-6'>
             {children}
         </div>

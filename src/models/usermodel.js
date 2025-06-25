@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 
@@ -17,16 +18,21 @@ Section:{
 },
 Role:{
 type:String,
-enum:["Student","Teacher"],
+enum:["Student","Faculty"],
 default:"Student"
 },
 Password:{
     type:String,
     require:true
+},
+Recent:[],
+Feedbackgiven:{
+    type:Array,
+    
 }
 
 });
-const Usermodel = mongoose.models.Usereddrf || mongoose.model('Usereddrf', Userschema);
+const Usermodel = mongoose.models.User || mongoose.model('User', Userschema);
 
 
 export  {Usermodel};
