@@ -21,9 +21,9 @@ const Sidebar = ({ role,index }) => {
           { icon: <MessageSquare size={20} color='blue' />, label: 'Suggestions', path: '/Student/suggestions' },
         ]
       : [
-          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/faculty-dashboard' },
-          { icon: <BarChart size={20} color='blue' />, label: 'Analytics', path: '/faculty-dashboard/analytics' },
-          { icon: <MessageSquare size={20} color='blue' />, label: 'Feedback', path: '/faculty-dashboard/feedback' },
+          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Faculty' },
+          { icon: <BarChart size={20} color='blue' />, label: 'Analytics', path: '/Faculty/Analytics' },
+          { icon: <MessageSquare size={20} color='blue' />, label: 'Feedback', path: '/Faculty/Feedback' },
         ];
 
   return (

@@ -1,25 +1,25 @@
 import Dashboardlayout from "@/components/layout/Dashboardlayout";
 import React from "react";
-
+import {  Star, Users } from "lucide-react";
 import Card from "@/components/layout/Card";
 import { ExternalLink } from "lucide-react";
 const page = () => {
   const cardData = [
     {
       tittle: "Total Feedbacks Given",
-      User: true,
+      Icon: < Users className="h-4 w-4 text-neutral-400" />,
       No: "7",
       Comment: "Across 4 different courses",
     },
     {
       tittle: "Pending Feedbacks",
-      Stars: true,
+      Icon: < Star className="h-4 w-4 text-neutral-400" />,
       No: "3",
       Comment: "For this semester",
     },
     {
       tittle: "Section",
-      User: true,
+      Icon: < Users className="h-4 w-4 text-neutral-400" />,
       No: "3",
       Comment: "Spring 2025",
     },

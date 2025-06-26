@@ -29,7 +29,7 @@ const SuggestionForm = () => {
             id="type"
             value={suggestionType}
             onChange={(e) => setSuggestionType(e.target.value)}
-            className="w-full border-neutral-400 text-sm outline-none rounded-md shadow-xs border-2 p-2 ring-indigo-500 focus:border-0 focus:ring-2"
+            className="w-full border-neutral-200 text-sm outline-none rounded-md shadow-xs border-2 p-2 ring-indigo-500 focus:border-0 focus:ring-2"
           >
             <option value="Curriculum">Curriculum</option>
             <option value="Facilities">Facilities</option>
