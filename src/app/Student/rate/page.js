@@ -1,5 +1,5 @@
 import Dashboardlayout from '@/components/layout/Dashboardlayout'
-import TeacherEvaluation from '@/components/RateStudent/Rate'
+import TeacherEvaluation from '@/components/Rate/Rate'
 import React from 'react'
 
 const page = () => {

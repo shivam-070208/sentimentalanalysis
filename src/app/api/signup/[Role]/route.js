@@ -17,7 +17,8 @@ export async function POST(request,{params}) {
     const para = await params;
     const Role = para.Role;
     
-    const { Name, Email, Section, Password } = body;
+    const { Name, Email, Section, Password,Department } = body;
+    console.log(body)
     const hashedPassword = await bcrypt.hash(Password,salt)
 
     const user = await Usermodel.create({
@@ -25,7 +26,8 @@ export async function POST(request,{params}) {
       Email,
       Section,
       Password:hashedPassword,
-      Role
+      Role,
+      Department
     });
     const token =  jwt.sign(Email,process.env.JWT_SECRET)
     cookiestore.set('token',token,{

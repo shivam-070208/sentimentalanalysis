@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 
 const suggestionSchema = new mongoose.Schema({
-    StudentId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    Student:{
+       type:String,
         required: true
     },
     Type: {
@@ -22,4 +21,5 @@ const suggestionSchema = new mongoose.Schema({
     })
 
 
-    export default Suggestionmodel = mongoose.models.Suggestion || mongoose.model('Suggestion', suggestionSchema);
+   const Suggestionmodel =  mongoose.model('Suggestion', suggestionSchema);
+   export default Suggestionmodel;

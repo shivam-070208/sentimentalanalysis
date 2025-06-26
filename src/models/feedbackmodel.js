@@ -7,9 +7,8 @@ const feedbackSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    StudentId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    Student:{
+        type:String,
         required: true
     },
     Ratings:{
@@ -51,4 +50,5 @@ const feedbackSchema = new mongoose.Schema({
 })
 
 
-export default Feedbackmodel = mongoose.models.Feedback || mongoose.model('Feedback', feedbackSchema);
+const Feedbackmodel = mongoose.models.Feedback || mongoose.model('Feedback', feedbackSchema);
+export default Feedbackmodel;

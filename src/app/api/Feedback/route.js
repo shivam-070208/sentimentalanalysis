@@ -1,21 +1,26 @@
 import feedbackmodel from "@/models/feedbackmodel";
 import { Usermodel } from "@/models/usermodel";
+import * as jwt from 'jsonwebtoken'
+import { cookies } from "next/headers";
 
 export async function POST(request){
-    const {TeacherId,StudentId,Ratings,Feedback} = await request.json();
+    const {TeacherId,Ratings,Feedback} = await request.json();
     try{
+        const cookieStore = await cookies();
+        const token = cookieStore.get('token').value;
+  
+        
+        const Student =  jwt.verify(token,process.env.JWT_SECRET)
         const feedback = await feedbackmodel.create({
             TeacherId,
-            StudentId,
+            Student,
             Ratings,
             Feedback
         });
-        const student = await Usermodel.findById(StudentId);
-        student.PendingFeedbacks = student.PendingFeedbacks.filter(id => id.toString() !== TeacherId.toString());
-        await student.save();
+       
         return new Response(JSON.stringify({message:"Feedback Submitted Successfully"}),{status:200});
     }catch(err){
-        console.error("Error submitting feedback:", err);
+        console.log("Error submitting feedback:", err);
         return new Response(JSON.stringify({message:"Failed to submit feedback"}),{status:500});
     }
 }

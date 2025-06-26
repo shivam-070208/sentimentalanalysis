@@ -68,7 +68,7 @@ const Form = ({ board,sboard }) => {
     const data = await res.json()
     if(res.status == 200){
       console.log('routing')
-    router.push(`/${board}/home`)
+    router.push(`/${board}`)
     }
     console.log(data)
    smessage(data.message)

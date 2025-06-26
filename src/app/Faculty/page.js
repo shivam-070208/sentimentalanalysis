@@ -1,4 +1,4 @@
-import Dashboard from '@/components/facultyhome/Dashboard';
+import Dashboard from '@/components/faculty/Dashboard';
 import Card from '@/components/layout/Card';
 import Dashboardlayout from '@/components/layout/Dashboardlayout'
 import {  BarChart, LineChart, PieChart } from 'lucide-react';

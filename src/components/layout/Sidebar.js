@@ -16,7 +16,7 @@ const Sidebar = ({ role,index }) => {
   const navItems =
     normalizedRole == 'student'
       ? [
-          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Student/home' },
+          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Student' },
           { icon: <Users size={20} color='blue' />, label: 'Rate Teachers', path: '/Student/rate' },
           { icon: <MessageSquare size={20} color='blue' />, label: 'Suggestions', path: '/Student/suggestions' },
         ]

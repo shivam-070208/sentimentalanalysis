@@ -29,7 +29,11 @@ Recent:[],
 Feedbackgiven:{
     type:Array,
     
+},
+Department:{
+    type:String
 }
+
 
 });
 const Usermodel = mongoose.models.User || mongoose.model('User', Userschema);
