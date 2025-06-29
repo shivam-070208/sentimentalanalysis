@@ -25,7 +25,7 @@ const Dashboardlayout = ({children,role,index}) => {
         </header>
         <div className='  flex-1 flex relative   w-screen'>
        <Sidebar role={role} index={index} />
-        <div className='flex-1 p-6 bg-[#F9FAFB] flex-col flex gap-6'>
+        <div className='flex-1 md:p-6  bg-[#F9FAFB] flex-col flex gap-6 max-w-screen flex-wrap'>
             {children}
         </div>
         </div>

@@ -21,5 +21,5 @@ const suggestionSchema = new mongoose.Schema({
     })
 
 
-   const Suggestionmodel =  mongoose.model('Suggestion', suggestionSchema);
+   const Suggestionmodel =  mongoose.models.Suggestion ||mongoose.model('Suggestion', suggestionSchema);
    export default Suggestionmodel;

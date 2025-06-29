@@ -20,7 +20,7 @@ export async function POST(request){
        
         return new Response(JSON.stringify({message:"Feedback Submitted Successfully"}),{status:200});
     }catch(err){
-        console.log("Error submitting feedback:", err);
+      
         return new Response(JSON.stringify({message:"Failed to submit feedback"}),{status:500});
     }
 }

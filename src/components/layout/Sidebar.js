@@ -16,14 +16,14 @@ const Sidebar = ({ role,index }) => {
   const navItems =
     normalizedRole == 'student'
       ? [
-          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Student' },
+          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Student/home' },
           { icon: <Users size={20} color='blue' />, label: 'Rate Teachers', path: '/Student/rate' },
           { icon: <MessageSquare size={20} color='blue' />, label: 'Suggestions', path: '/Student/suggestions' },
         ]
       : [
-          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Faculty' },
-          { icon: <BarChart size={20} color='blue' />, label: 'Analytics', path: '/Faculty/Analytics' },
-          { icon: <MessageSquare size={20} color='blue' />, label: 'Feedback', path: '/Faculty/Feedback' },
+          { icon: <Home size={20} color='blue' />, label: 'Dashboard', path: '/Faculty/home' },
+          { icon: <BarChart size={20} color='blue' />, label: 'Analytics', path: '/Faculty/Analytic' },
+          { icon: <MessageSquare size={20} color='blue' />, label: 'Suggestions', path: '/Faculty/Suggestions' },
         ];
 
   return (

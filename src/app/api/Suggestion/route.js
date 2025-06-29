@@ -14,7 +14,7 @@ export async function POST(request) {
             Description,Student});    
         return new Response(JSON.stringify({message:"Suggestion Submitted Successfully"}),{status:200});
     }catch(err){
-        console.log("Error submitting suggestion:", err);
+        
         return new Response(JSON.stringify({message:"Failed to submit suggestion"}),{status:500});
     }    
 }

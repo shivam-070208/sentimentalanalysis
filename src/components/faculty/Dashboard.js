@@ -121,7 +121,7 @@ export default function Dashboard() {
         setSectionWiseData(formattedSection);
         setRecentSuggestions(suggestions);
         setCardStats({
-          avgRating: (totalRatingSum / totalRatingCount).toFixed(1),
+          avgRating: (totalRatingSum / totalRatingCount).toFixed(0),
           totalSuggestions: suggestions.length,
           sentiment: sentimentPercent,
           totalFeedbacks: feedbacks.length,
@@ -133,7 +133,7 @@ export default function Dashboard() {
     {
       title: "Overall Rating",
       Icon: (<LineChart className="h-4 w-4 text-neutral-400" />),
-      No: `${cardStats.avgRating}/5.0`,
+      No: `${cardStats.avgRating??0}/5.0`,
       Comment: `Based on ${cardStats.totalFeedbacks} student feedbacks`,
     },
     {
@@ -159,7 +159,7 @@ export default function Dashboard() {
     <div className="space-y-8 p-6">
       {/* Header */}
       <div className="w-full flex justify-between flex-wrap">
-        <span className="w-fit whitespace-nowrap text-2xl font-bold">Welcome Back, Student!</span>
+        <span className="w-fit whitespace-nowrap text-2xl font-bold">Welcome Back, Proffesor!</span>
         <div className="flex gap-3 flex-wrap justify-center">
           <button className="hover:shadow-md shadow-neutral-600 hover:px-4 transition-all duration-400 rounded px-3 py-1 gap-2 flex bg-blue-600 hover:bg-blue-500 cursor-pointer text-white items-center">
             <BarChart className="w-5 h-5" />
@@ -217,70 +217,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Pie + Suggestions */}
-      <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
-        <div className="p-6 rounded-lg shadow bg-white">
-          <h2 className="text-lg font-semibold mb-1">Section Distribution</h2>
-          <p className="text-sm text-gray-500 mb-4">Feedback by student section</p>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <RechartsPieChart>
-                <Pie
-                  data={sectionWiseData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                >
-                  {sectionWiseData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </RechartsPieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="col-span-2 p-6 rounded-lg shadow bg-white">
-          <h2 className="text-lg font-semibold mb-1">Recent Suggestions</h2>
-          <p className="text-sm text-gray-500 mb-4">Latest anonymous feedback from students</p>
-          <div className="space-y-4">
-            {recentSuggestions.length === 0 ? (
-              <p className="text-gray-500">No suggestions available.</p>
-            ) : (
-              recentSuggestions.map((suggestion) => (
-                <div key={suggestion.id} className="pb-4 border-b border-gray-100 last:border-0">
-                  <p className="font-medium">{suggestion.text}</p>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-sm text-gray-500">
-                      {new Date(suggestion.date).toLocaleDateString()}
-                    </span>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        suggestion.sentiment === "positive"
-                          ? "bg-green-100 text-green-800"
-                          : suggestion.sentiment === "neutral"
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {suggestion.sentiment === "positive"
-                        ? "Positive"
-                        : suggestion.sentiment === "neutral"
-                        ? "Neutral"
-                        : "Needs Attention"}
-                    </span>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
+  
     </div>
   );
 }
