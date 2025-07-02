@@ -11,11 +11,12 @@ import {
   Users
 } from "lucide-react";
 import Sidebar from './Sidebar';
+import Usercheck from './Usercheck';
 const Dashboardlayout = ({children,role,index}) => {
    
     return (
     <div className='flex flex-col max-w-screen overflow-x-hidden   min-h-screen'>
-      
+      <Usercheck role={role} />
         <header className='w-screen flex justify-between p-4 border-b-1 border-neutral-200 peer'>
     <div className=' md:text-xl text-lg font-[500] ' >
      

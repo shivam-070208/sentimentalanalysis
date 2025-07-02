@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function TeacherEvaluation() {
   const [TeacherId, setSelectedTeacher] = useState("");
-  const [alert, setallert] = useState(null);
+  const [alert, setAlert] = useState(null);
   const [Ratings, setRatings] = useState({
     communication: null,
     knowledge: null,
@@ -12,20 +12,27 @@ export default function TeacherEvaluation() {
     availability: null,
   });
   const [Feedback, setFeedback] = useState("");
-  const [teachers, setteacher] = useState([]);
-  const [loading, setLoading] = useState(false); // new
-  const timeoutRef = useRef(null); // using useRef to clear timeouts properly
+  const [teachers, setTeachers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [recent, setRecent] = useState([]);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     fetch("/api/fetch", { method: "POST" })
       .then(async (res) => {
         const data = await res.json();
-        setteacher(data.data || []);
+        setTeachers(data.data || []);
       })
-      .catch((error) => setallert(`Error: ${error.message}`));
+      .catch((error) => showAlert(`Error: ${error.message}`));
   }, []);
 
-  const reset = () => {
+  const showAlert = (message) => {
+    setAlert(message);
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setAlert(null), 3000);
+  };
+
+  const resetForm = () => {
     setSelectedTeacher("");
     setFeedback("");
     setRatings({
@@ -35,36 +42,46 @@ export default function TeacherEvaluation() {
       availability: null,
     });
     clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setallert(null), 2000);
+    timeoutRef.current = setTimeout(() => setAlert(null), 2000);
   };
 
   const handleSubmit = async () => {
-    if (!Ratings.Behaviour || !Ratings.availability || !Ratings.communication || !Ratings.knowledge) {
-      setallert("Fill all required details");
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setallert(null), 2000);
+    const { communication, knowledge, Behaviour, availability } = Ratings;
+    if (!communication || !knowledge || !Behaviour || !availability) {
+      showAlert("Fill all required details");
       return;
     }
 
     try {
-      setLoading(true); // disable submit
-      setallert("Submitting…");
+      setLoading(true);
+      showAlert("Submitting…");
+
       const res = await fetch("/api/Feedback", {
         method: "POST",
         body: JSON.stringify({ TeacherId, Ratings, Feedback }),
       });
 
+      const teacher = teachers.find((t) => t._id === TeacherId);
+
       if (res.ok) {
-        setallert("Submitted successfully ✅");
-        reset();
+        setRecent((prev) => [
+          ...prev,
+          {
+            date: new Date().toLocaleString(),
+            teacherName: teacher?.Name,
+            course: teacher?.Department,
+          },
+        ]);
+        showAlert("Submitted successfully ✅");
+        resetForm();
       } else {
         const data = await res.json();
-        setallert(data.message || "Error submitting feedback");
+        showAlert(data.message || "Error submitting feedback");
       }
     } catch (err) {
-      setallert(`Error: ${err.message}`);
+      showAlert(`Error: ${err.message}`);
     } finally {
-      setLoading(false); // enable submit again
+      setLoading(false);
     }
   };
 
@@ -75,7 +92,7 @@ export default function TeacherEvaluation() {
           key={i}
           onClick={() => onChange(i + 1)}
           xmlns="http://www.w3.org/2000/svg"
-          className={`h-4 w-4 mt-2 ${i < value ? "text-yellow-500" : "text-gray-300"}`}
+          className={`h-5 w-5 mt-1 ${i < value ? "text-yellow-500" : "text-gray-300"}`}
           viewBox="0 0 24 24"
           fill="currentColor"
         >
@@ -88,10 +105,12 @@ export default function TeacherEvaluation() {
   return (
     <div className="w-full md:p-4">
       <h3 className="text-2xl font-bold">Rate Your Teachers</h3>
+
       {alert && (
         <motion.div
-          animate={{ y: -10, opacity: 1 }}
-          className="fixed right-10 bottom-0 bg-blue-600 text-white px-3 py-1 rounded text-sm font-semibold"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="fixed right-10 bottom-4 bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold z-50"
         >
           {alert}
         </motion.div>
@@ -101,8 +120,8 @@ export default function TeacherEvaluation() {
         Your feedback is anonymous and will help improve teaching quality.
       </p>
 
-      <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition border-neutral-400">
-        <h1 className="text-2xl font-semibold mb-2">Teacher Evaluation Form</h1>
+      <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition border border-neutral-300">
+        <h1 className="text-xl font-semibold mb-4">Teacher Evaluation Form</h1>
 
         <label className="block mb-2 font-medium text-sm">Select Teacher</label>
         <select
@@ -138,7 +157,7 @@ export default function TeacherEvaluation() {
             <textarea
               value={Feedback}
               onChange={(e) => setFeedback(e.target.value)}
-              className="w-full border border-neutral-300 min-h-20 rounded-md p-2 text-sm"
+              className="w-full border border-neutral-300 min-h-24 rounded-md p-2 text-sm"
               placeholder="Share your thoughts about the teacher's strengths and areas for improvement..."
             />
 
@@ -152,6 +171,21 @@ export default function TeacherEvaluation() {
               {loading ? "Submitting…" : "Submit Feedback"}
             </button>
           </>
+        )}
+
+        {/* Recent Feedback Activity */}
+        {recent.length > 0 && (
+          <div className="mt-8">
+            <h2 className="font-semibold mb-2 text-sm text-neutral-700">Recent Feedback Activity</h2>
+            <ul className="text-sm space-y-1">
+              {recent.map((item, index) => (
+                <li key={index}>
+                  📅 <span className="font-medium">{item.date}</span> — 👨‍🏫{" "}
+                  <span className="font-semibold">{item.teacherName}</span> ({item.course})
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>
