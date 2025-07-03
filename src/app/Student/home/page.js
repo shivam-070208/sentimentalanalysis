@@ -11,53 +11,56 @@ const Page = () => {
   const [pendingFeedbacks, setPendingFeedbacks] = useState([]);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/Student", { method: "POST" });
-      const data = await res.json();
-      setUser(data);
+ useEffect(() => {
+  async function fetchData() {
+    const res = await fetch("/api/Student", { method: "POST", credentials: "include" });
+    const data = await res.json();
+    setUser(data);
 
-      // Generate cards
-      setFeedbackStats([
-        {
-          tittle: "Total Feedbacks Given",
-          Icon: <Users className="h-4 w-4 text-neutral-400" />,
-          No: data.Feedbackgiven?.length || 0,
-          Comment: `Across ${new Set(data.Feedbackgiven?.map(f => f.course)).size || 0} different courses`,
-        },
-        {
-          tittle: "Section",
-          Icon: <Users className="h-4 w-4 text-neutral-400" />,
-          No: data.Section,
-          Comment: "Current academic section",
-        },
-      ]);
+    // Stats
+    setFeedbackStats([
+      {
+        tittle: "Total Feedbacks Given",
+        Icon: <Users className="h-4 w-4 text-neutral-400" />,
+        No: data.Feedbackgiven?.length || 0,
+        Comment: `Across ${new Set(data.Feedbackgiven?.map(f => f.course)).size || 0} different courses`,
+      },
+      {
+        tittle: "Section",
+        Icon: <Users className="h-4 w-4 text-neutral-400" />,
+        No: data.Section,
+        Comment: "Current academic section",
+      },
+    ]);
 
-      // Recent
-      setRecentActivity(
-        data.Feedbackgiven?.slice(-5).reverse().map((entry, i) => ({
-          id: i,
-          action: `Submitted feedback for ${entry.teacherName}`,
-          date: entry.date,
-          course: entry.course,
-        })) || []
-      );
+    // Recent
+    setRecentActivity(
+      data.Feedbackgiven?.slice(-5).reverse().map((entry, i) => ({
+        id: i,
+        action: `Submitted feedback for ${entry.teacherName}`,
+        date: entry.date,
+        course: entry.course,
+      })) || []
+    );
 
-      // Example logic for pending feedbacks
-      const allTeachers = [
-        { teacher: "Dr. Robert Williams", course: "Operating Systems" },
-        { teacher: "Prof. Sarah Thompson", course: "Computer Networks" },
-        { teacher: "Dr. David Clark", course: "Software Engineering" },
-      ];
-      const givenCourses = new Set(data.Feedbackgiven?.map((f) => f.course));
-      setPendingFeedbacks(
-        allTeachers.filter((item) => !givenCourses.has(item.course)).map((item, i) => ({ ...item, id: i }))
-      );
-    }
+    // Pending
+    const res2 = await fetch("/api/Feedback/pending", {
+      method: "POST",
+      credentials: "include",
+    });
+    const pending = await res2.json();
 
-    fetchData();
-  }, []);
+    setPendingFeedbacks(
+      pending.map((item, i) => ({
+        teacher: item.Name,
+        course: item.Department || "Unknown Course",
+        id: i,
+      }))
+    );
+  }
 
+  fetchData();
+}, []);
   return (
     <Dashboardlayout role="Student" index={0}>
       <div className="w-full flex justify-between flex-wrap">

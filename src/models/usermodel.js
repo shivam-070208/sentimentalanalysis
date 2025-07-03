@@ -26,9 +26,16 @@ Password:{
     require:true
 },
 Recent:[],
-Feedbackgiven:{
-    type:Array,
-    
+Feedbackgiven: {
+  type: [
+    {
+      date: Date,
+      teacherName: String,
+      TeacherId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      course: String,
+    }
+  ],
+  default: []
 },
 Department:{
     type:String
